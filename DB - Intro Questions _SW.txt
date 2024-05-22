@@ -1,0 +1,343 @@
+1.
+SELECT firstName FROM employees;
+----------------------------------------------------------------
+2.
+SELECT productName FROM products;
+----------------------------------------------------------------
+3.
+SELECT city FROM offices;
+----------------------------------------------------------------
+4.
+SELECT orderDate FROM orders;
+----------------------------------------------------------------
+5.
+SELECT productLine FROM productlines;
+----------------------------------------------------------------
+6.
+SELECT customerName,contactFirstName FROM customers;
+----------------------------------------------------------------
+7.
+SELECT productName,buyPrice FROM products;
+----------------------------------------------------------------
+8.
+SELECT  firstName,lastName FROM employees;
+----------------------------------------------------------------
+9.
+SELECT  city,country FROM offices;
+----------------------------------------------------------------
+10.
+SELECT  orderNumber,orderDate FROM orders;
+----------------------------------------------------------------
+----------------------------------------------------------------
+----------------------------------------------------------------
+----------------------------------------------------------------
+----------------------------------------------------------------
+11.
+SELECT  customerName,contactFirstName,contactLastName FROM customers;
+----------------------------------------------------------------
+12.
+SELECT  productCode,productName,buyPrice FROM products;
+----------------------------------------------------------------
+13.
+SELECT  employeeNumber,firstName,lastName FROM employees;
+----------------------------------------------------------------
+14.
+SELECT  officeCode,city,country FROM offices;
+----------------------------------------------------------------
+15.
+SELECT  orderNumber,orderDate,status FROM orders;
+----------------------------------------------------------------
+16.
+SELECT firstName,lastName FROM employees;
+----------------------------------------------------------------
+17.
+select * from customers
+----------------------------------------------------------------
+18.
+select * from products
+----------------------------------------------------------------
+19.
+select * from employees
+----------------------------------------------------------------
+20.
+select * from offices
+----------------------------------------------------------------
+----------------------------------------------------------------
+----------------------------------------------------------------
+----------------------------------------------------------------
+----------------------------------------------------------------
+21.
+select * from orders
+----------------------------------------------------------------
+22.
+SELECT lastName,email,jobTitle FROM employees;
+----------------------------------------------------------------
+23.
+SELECT * FROM customers order by customerName asc;
+----------------------------------------------------------------
+24.
+SELECT * FROM products order by buyPrice desc;
+----------------------------------------------------------------
+25.
+SELECT DISTINCT city FROM offices;
+----------------------------------------------------------------
+26.
+SELECT DISTINCT jobTitle FROM employees;
+----------------------------------------------------------------
+27.
+SELECT DISTINCT country FROM customers;
+----------------------------------------------------------------
+28.
+SELECT DISTINCT status FROM orders;
+----------------------------------------------------------------
+29.
+SELECT * FROM employees;
+----------------------------------------------------------------
+30.
+SELECT * FROM employees order by lastName asc;
+----------------------------------------------------------------
+----------------------------------------------------------------
+----------------------------------------------------------------
+----------------------------------------------------------------
+----------------------------------------------------------------
+31.
+SELECT * FROM customers;
+----------------------------------------------------------------
+32.
+SELECT customerName FROM customers;
+----------------------------------------------------------------
+33.
+SELECT * FROM customers order by customerName;
+----------------------------------------------------------------
+34.
+SELECT customerName,country FROM customers 
+----------------------------------------------------------------
+35.
+SELECT customerName,phone FROM customers 
+----------------------------------------------------------------
+36.
+SELECT customerName,creditLimit FROM customers where creditLimit>50000.00;
+----------------------------------------------------------------
+37.
+SELECT productName,quantityInStock FROM products where quantityInStock >30;
+----------------------------------------------------------------
+38.
+SELECT * FROM customers where country="France";
+----------------------------------------------------------------
+39.
+SELECT city,officeCode FROM offices where city LIKE 'L%';
+----------------------------------------------------------------
+40.
+SELECT customerName,contactLastName,contactFirstName FROM customers where contactLastName like "D%";
+----------------------------------------------------------------
+----------------------------------------------------------------
+----------------------------------------------------------------
+----------------------------------------------------------------
+----------------------------------------------------------------
+41.
+SELECT productName,productCode FROM products where productCode like "S10_%";
+----------------------------------------------------------------
+42.
+SELECT officeCode,postalCode FROM offices WHERE postalCode like "%9___%";
+----------------------------------------------------------------
+43.
+SELECT orderNumber,orderDate FROM orders where orderDate like "2004%";
+----------------------------------------------------------------
+44.
+SELECT firstName,email FROM employees where firstName not like "N%";
+----------------------------------------------------------------
+45.
+SELECT officeCode,city FROM offices where city like "%o";
+----------------------------------------------------------------
+46.
+SELECT * FROM orders order by orderDate desc limit 5;
+----------------------------------------------------------------
+47.
+SELECT * FROM products where buyPrice >50;
+----------------------------------------------------------------
+48.
+SELECT * FROM products order by productCode desc ;
+----------------------------------------------------------------
+49.
+SELECT * FROM orders order by orderDate asc;
+----------------------------------------------------------------
+50.
+SELECT * FROM products order by buyPrice desc;
+----------------------------------------------------------------
+----------------------------------------------------------------
+----------------------------------------------------------------
+----------------------------------------------------------------
+----------------------------------------------------------------
+51.
+SELECT orderNumber,orderDate FROM orders order by orderDate;
+----------------------------------------------------------------
+52.
+SELECT * FROM offices order by city desc;
+----------------------------------------------------------------
+53.
+SELECT officeCode,postalCode FROM offices where state = "ca";
+----------------------------------------------------------------
+54.
+SELECT orderNumber,orderDate FROM orders where orderDate <"2005-01-01";
+----------------------------------------------------------------
+55.
+SELECT customerName,phone FROM customers where country="usa";
+----------------------------------------------------------------
+56.
+SELECT orderNumber,orderDate FROM orders where orderDate like "2005%" and status ="shipped";
+----------------------------------------------------------------
+57.
+SELECT * FROM productlines where textDescription like "%unique%";
+----------------------------------------------------------------
+58.
+SELECT customerNumber,phone FROM customers where country = "france" or country="usa";
+----------------------------------------------------------------
+59.
+SELECT productName,buyPrice FROM products where buyPrice>50 and buyPrice <100;
+----------------------------------------------------------------
+60.
+SELECT orderNumber,orderDate FROM orders where orderDate < "2005-01-01" or orderDate> "2007-12-31";
+----------------------------------------------------------------
+----------------------------------------------------------------
+----------------------------------------------------------------
+----------------------------------------------------------------
+----------------------------------------------------------------
+61.
+SELECT officeCode,postalCode FROM offices where state="CA" or state="NY";
+----------------------------------------------------------------
+62.
+SELECT productName,buyPrice FROM products where buyPrice between 20 and 50 and productName like "%Car%";
+----------------------------------------------------------------
+63.
+SELECT customerName,phone,creditLimit FROM customers where creditLimit>50000 and ( country="france" or country="usa" or country="Germany");
+----------------------------------------------------------------
+64.
+SELECT customerName,creditLimit FROM customers where creditLimit>100000 or creditLimit <10000
+----------------------------------------------------------------
+65.
+SELECT productName,buyPrice FROM products where buyPrice <30 or productName like "%Motorcycle%";
+----------------------------------------------------------------
+66.
+SELECT distinct productCode FROM products;
+----------------------------------------------------------------
+67.
+SELECT * FROM customers where creditLimit is NULL;
+----------------------------------------------------------------
+68.
+SELECT productCode,productName FROM products where productScale is NULL;
+----------------------------------------------------------------
+69.
+SELECT orderNumber,comments FROM orders where comments is NULL;
+----------------------------------------------------------------
+70.
+SELECT customerName,contactLastName,contactFirstName FROM customers limit 5;
+----------------------------------------------------------------
+----------------------------------------------------------------
+----------------------------------------------------------------
+----------------------------------------------------------------
+----------------------------------------------------------------
+71.
+SELECT customerName as "customer name" from customers;
+----------------------------------------------------------------
+72.
+SELECT productName as "product Name",buyPrice as "buy Price" FROM products;
+----------------------------------------------------------------
+73.
+SELECT orderNumber as "order Number",productCode as "product Code" FROM orderdetails;
+----------------------------------------------------------------
+74.
+SELECT productLine as "product Line" FROM productlines;
+----------------------------------------------------------------
+75.
+SELECT CONCAT(firstName, ' ', lastName) AS "Full Name" from employees
+----------------------------------------------------------------
+76.
+SELECT * FROM customers order by customerName limit 10;
+----------------------------------------------------------------
+77.
+SELECT * FROM products order by buyPrice desc limit 5;
+----------------------------------------------------------------
+78.
+SELECT orderNumber,orderDate FROM orders order by orderDate limit 20;
+----------------------------------------------------------------
+79.
+SELECT officeCode,city FROM offices order by city  limit 3;
+----------------------------------------------------------------
+80.
+SELECT productCode,productName FROM products order by productName limit 12;
+----------------------------------------------------------------
+----------------------------------------------------------------
+----------------------------------------------------------------
+----------------------------------------------------------------
+----------------------------------------------------------------
+81.
+SELECT orderNumber,orderDate FROM orders order by orderDate desc limit 7;
+----------------------------------------------------------------
+82.
+SELECT firstName FROM employees where firstName like "T%m";
+----------------------------------------------------------------
+83.
+SELECT lastName FROM employees where lastName not like "b%";
+----------------------------------------------------------------
+84.
+SELECT productCode FROM products where productCode like "%\_20%";
+----------------------------------------------------------------
+85.
+SELECT customerName,contactFirstName,contactLastName FROM customers where contactLastName is not NULL;
+----------------------------------------------------------------
+86.
+SELECT productName,productCode FROM products WHERE productCode IS NOT NULL;
+----------------------------------------------------------------
+87.
+SELECT CONCAT(lastName," ",firstName)as "employee name" FROM employees where extension is not NULL;
+----------------------------------------------------------------
+88.
+SELECT officeCode,postalCode FROM offices where postalCode is not NULL;
+----------------------------------------------------------------
+89.
+SELECT sum(quantityOrdered) FROM orderdetails;
+----------------------------------------------------------------
+90.
+SELECT sum(amount)as "totalPaymentAmount" FROM payments;
+----------------------------------------------------------------
+----------------------------------------------------------------
+----------------------------------------------------------------
+----------------------------------------------------------------
+----------------------------------------------------------------
+91.
+canceled
+----------------------------------------------------------------
+92.
+SELECT avg(creditLimit) FROM customers;
+----------------------------------------------------------------
+93.
+canceled
+----------------------------------------------------------------
+94.
+SELECT count(quantityOrdered) as "count",sum(quantityOrdered)as"total",avg(quantityOrdered)as "avg" FROM orderdetails;
+----------------------------------------------------------------
+95.
+SELECT count(amount) as "count",sum(amount) as total,avg(amount) as "avg" FROM payments;
+----------------------------------------------------------------
+96.
+canceled
+----------------------------------------------------------------
+97.
+SELECT sum(buyPrice) as sum,avg(buyPrice)as avg FROM products;
+----------------------------------------------------------------
+98.
+SELECT sum(creditLimit) as total,avg(creditLimit) as avg FROM customers;
+----------------------------------------------------------------
+99.
+????????????
+----------------------------------------------------------------
+100.
+SELECT officeCode,city FROM offices where officeCode in(1,2,4);
+----------------------------------------------------------------
+----------------------------------------------------------------
+----------------------------------------------------------------
+----------------------------------------------------------------
+----------------------------------------------------------------
+
+
+
