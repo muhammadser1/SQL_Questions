@@ -1,0 +1,187 @@
+1.
+select lastName,firstName, offices.phone
+from employees
+INNER JOIN offices ON offices.officeCode = employees.officeCode
+-------------------------------------------------------------------------------------
+2.
+SELECT customerName,
+        postalCode,
+		orders.orderDate
+FROM customers
+INNER JOIN orders ON orders.customerNumber = customers.customerNumber
+-------------------------------------------------------------------------------------
+3.
+SELECT customerName,
+         orders.shippedDate
+FROM customers
+LEFT JOIN orders
+    ON orders.customerNumber =customers.customerNumber
+-------------------------------------------------------------------------------------
+4.
+select emp.lastName,emp.email,offices.addressLine2,offices.country
+from employees as emp
+left join offices on offices.officeCode=emp.officeCode
+order by offices.country
+-------------------------------------------------------------------------------------
+5.
+SELECT customerName, concat(employees.firstName," ",employees.lastName) as employeesName
+FROM customers
+inner join employees on employees.employeeNumber=customers.salesRepEmployeeNumber
+-------------------------------------------------------------------------------------
+6.
+SELECT concat(customerName," ",employees.lastName," ",employees.firstName,offices.city) as details
+FROM customers
+inner join employees on employees.employeeNumber=customers.salesRepEmployeeNumber
+inner join offices on employees.officeCode=offices.officeCode
+-------------------------------------------------------------------------------------
+7.
+SELECT cust.customerName,pro_line.productLine,pro_line.textDescription FROM customers as cust
+inner join orders as ord on cust.customerNumber=ord.customerNumber
+inner join orderdetails on orderdetails.orderNumber=ord.orderNumber
+inner join products as pro on orderdetails.productCode=pro.productCode
+inner join productlines as pro_line on pro_line.productLine=pro.productLine
+-------------------------------------------------------------------------------------
+8.
+SELECT customerName,phone,orders.status FROM customers
+inner join orders on orders.customerNumber=customers.customerNumber
+-------------------------------------------------------------------------------------
+9.
+SELECT customerName,country,orderdetails.quantityOrdered FROM customers
+inner join orders on orders.customerNumber = customers.customerNumber
+inner join orderdetails on orderdetails.orderNumber = orders.orderNumber
+-------------------------------------------------------------------------------------
+10.
+SELECT customerName,country,orderdetails.quantityOrdered FROM customers
+inner join orders on orders.customerNumber = customers.customerNumber
+inner join orderdetails on orderdetails.orderNumber = orders.orderNumber
+-------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
+11.
+SELECT customerName,orders.orderNumber,products.productName FROM customers
+inner join orders on orders.customerNumber=customers.customerNumber
+inner join orderdetails as ot on ot.orderNumber=orders.orderNumber
+inner join products on products.productCode=ot.productCode
+-------------------------------------------------------------------------------------
+12.
+SELECT customerName,orders.orderNumber,products.productName,ot.quantityOrdered FROM customers
+inner join orders on orders.customerNumber=customers.customerNumber
+inner join orderdetails as ot on ot.orderNumber=orders.orderNumber
+inner join products on products.productCode=ot.productCode
+-------------------------------------------------------------------------------------
+13.
+SELECT customerName,orders.orderNumber,products.productName FROM customers
+inner join orders on orders.customerNumber=customers.customerNumber
+inner join orderdetails as ot on ot.orderNumber=orders.orderNumber
+inner join products on products.productCode=ot.productCode
+inner join productlines on productlines.productLine=products.productLine
+-------------------------------------------------------------------------------------
+14.
+SELECT customerName,orders.orderNumber,products.productCode,ot.priceEach * ot.quantityOrdered FROM customers
+inner join orders on orders.customerNumber=customers.customerNumber
+inner join orderdetails as ot on ot.orderNumber=orders.orderNumber
+inner join products on products.productCode=ot.productCode
+where ot.priceEach * ot.quantityOrdered >2000
+-------------------------------------------------------------------------------------
+15.
+SELECT contactFirstName,phone,ord.orderDate	,ord.status FROM customers
+inner join orders as ord on ord.customerNumber=customers.customerNumber
+where ord.orderDate between "2004-01-01" and "2004-03-31"
+order by ord.orderDate desc
+-------------------------------------------------------------------------------------
+16.
+SELECT customerName,ord.requiredDate FROM customers
+inner join orders as ord on ord.customerNumber=customers.customerNumber
+order by ord.requiredDate
+-------------------------------------------------------------------------------------
+17.
+SELECT contactLastName,postalCode,ord.status,orderdetails.quantityOrdered FROM customers
+inner join orders as ord on ord.customerNumber=customers.customerNumber
+inner join orderdetails on orderdetails.orderNumber=ord.orderNumber
+order by ord.orderNumber
+-------------------------------------------------------------------------------------
+18.
+select em.lastName,em.firstName, of.city,of.country
+from employees as em
+inner join offices as of on of.officeCode=em.officeCode
+order by em.firstName
+-------------------------------------------------------------------------------------
+19.
+select customerName,phone,ord.status
+from customers
+inner join orders as ord on ord.customerNumber=customers.customerNumber
+order by customerName desc
+-------------------------------------------------------------------------------------
+20.
+select customerName,phone,ord.status,ordt.quantityOrdered
+from customers
+inner join orders as ord on ord.customerNumber=customers.customerNumber
+inner join orderdetails as ordt on ord.orderNumber =ordt.orderNumber
+where ordt.quantityOrdered > 40
+order by ordt.quantityOrdered
+-------------------------------------------------------------------------------------
+21.
+select customerName,ordt.quantityOrdered
+from customers
+inner join orders as ord on ord.customerNumber=customers.customerNumber
+inner join orderdetails as ordt on ord.orderNumber =ordt.orderNumber
+-------------------------------------------------------------------------------------
+22.
+select customerName,pro.productName,pro.buyPrice
+from customers
+inner join orders as ord on ord.customerNumber=customers.customerNumber
+inner join orderdetails on orderdetails.orderNumber=ord.orderNumber
+inner join products as pro on pro.productCode=orderdetails.productCode
+order by pro.buyPrice desc
+-------------------------------------------------------------------------------------
+23.
+select customerName,ord.orderNumber,ord.orderDate
+from customers
+inner join orders as ord on ord.customerNumber=customers.customerNumber
+where customerName like "%son%"
+-------------------------------------------------------------------------------------
+24.
+SELECT employeeNumber,firstName,lastName,of.city
+FROM employees
+inner join offices as of on of.officeCode=employees.officeCode
+where of.city like "s%"
+order by of.city
+-------------------------------------------------------------------------------------
+25.
+SELECT customerName,
+         concat(employees.firstName,
+         " ",
+         employees.lastName) AS saleseployee,
+         payments.paymentDate,
+         datediff(payments.paymentDate,
+         orders.orderDate) AS dayDif
+FROM customers
+INNER JOIN employees
+    ON customers.salesRepEmployeeNumber=employees.employeeNumber
+INNER JOIN orders
+    ON orders.customerNumber=customers.customerNumber
+INNER JOIN payments
+    ON payments.customerNumber=customers.customerNumber
+WHERE datediff(payments.paymentDate, orders.orderDate)>10
+ORDER BY  dayDif desc
+-------------------------------------------------------------------------------------
+26.
+SELECT c.customerName, CONCAT(e.firstName, ' ', e.lastName) AS salesEmployee,
+SUM(p.amount) AS totalPayments , c.contactLastName
+FROM customers c
+JOIN employees e ON c.salesRepEmployeeNumber = e.employeeNumber
+JOIN payments p ON c.customerNumber = p.customerNumber
+WHERE c.contactLastName LIKE '%son%'
+GROUP BY c.customerName, salesEmployee
+ORDER BY totalPayments DESC
+-------------------------------------------------------------------------------------
+27.
+SELECT orders.orderNumber,products.productName,sum(orderdetails.quantityOrdered * orderdetails.priceEach) as total
+FROM orders
+INNER JOIN orderdetails ON orderdetails.orderNumber = orders.orderNumber
+inner join products on products.productCode=orderdetails.productCode
+group by orderdetails.orderNumber,products.productName
+having total > 2000
+order by total desc
