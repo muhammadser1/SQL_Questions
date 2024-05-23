@@ -234,4 +234,12 @@ The values in column x must match one or more values in the set to evaluate to t
 ## SQL EXISTS Operator
 
 The EXISTS keyword in SQL is used in a WHERE clause to check for the existence of rows returned by a subquery. It returns true if the subquery returns one or more rows, and false otherwise.
-
+```sql
+SELECT *
+FROM customers c
+WHERE EXISTS (
+    SELECT 1
+    FROM orders o
+    WHERE o.customer_id = c.customer_id
+);
+```
