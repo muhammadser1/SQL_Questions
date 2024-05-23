@@ -167,3 +167,71 @@ The **CONCAT** function is used to concatenate two or more strings.
 SELECT CONCAT(firstName, " ", lastName) AS fullname
 FROM Customers;
 ```
+## Fetch
+#### FETCH clause skips N rows in a result set before starting to return any rows.
+```sql
+OFFSET offset_rows { ROW | ROWS }
+FETCH { FIRST | NEXT } [ fetch_rows ] { ROW | ROWS } ONLY
+```
+Exmaple:
+```sql
+SELECT * FROM employees
+ORDER BY 
+    salary DESC
+OFFSET 5 ROWS
+FETCH NEXT 5 ROWS ONLY;
+```
+##### it skips the first 5 rows using the OFFSET clause and fetches the next 5 rows using the FETCH NEXT clause.
+<br>
+
+## SQL ALL Operator
+| Condition   | Meaning                                                                                  |
+|-------------|------------------------------------------------------------------------------------------|
+| c > ALL(…)  | The values in column c must be greater than the biggest value in the set to evaluate to true. |
+| c >= ALL(…) | The values in column c must be greater than or equal to the biggest value in the set to evaluate to true. |
+| c < ALL(…)  | The values in column c must be less than the lowest value in the set to evaluate to true. |
+| c <= ALL(…) | The values in column c must be less than or equal to the lowest value in the set to evaluate to true. |
+| c <> ALL(…) | The values in column c must not be equal to any value in the set to evaluate to true.    |
+| c = ALL(…)  | The values in column c must be equal to any value in the set to evaluate to true.        |
+
+
+Example:
+```sql
+SELECT 
+    first_name, last_name, salary
+FROM
+    employees
+WHERE
+    salary > ALL (SELECT 
+            salary
+        FROM
+            employees
+        WHERE
+            department_id = 2)
+ORDER BY salary;
+```
+
+
+##  SQL ANY Operator
+| Condition    | Meaning                                                                                  |
+|--------------|------------------------------------------------------------------------------------------|
+| x = ANY (…)  | The values in column x must match one or more values in the set to evaluate to true.      |
+| x != ANY (…) | The values in column x must not match one or more values in the set to evaluate to true.  |
+| x > ANY (…)  | The values in column x must be greater than the smallest value in the set to evaluate to true. |
+| x < ANY (…)  | The values in column x must be smaller than the biggest value in the set to evaluate to true. |
+| x >= ANY (…) | The values in column x must be greater than or equal to the smallest value in the set to evaluate to true. |
+| x <= ANY (…) | The values in column x must be smaller than or equal to the biggest value in the set to evaluate to true. |
+
+
+Example:
+```sql
+SELECT * FROM table_name WHERE column_x = ANY (1, 2, 3);
+
+```
+The values in column x must match one or more values in the set to evaluate to true.
+
+
+## SQL EXISTS Operator
+
+The EXISTS keyword in SQL is used in a WHERE clause to check for the existence of rows returned by a subquery. It returns true if the subquery returns one or more rows, and false otherwise.
+
