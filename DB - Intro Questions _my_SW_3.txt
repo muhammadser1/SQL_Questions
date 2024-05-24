@@ -1,0 +1,135 @@
+1.
+select cus.customerName,orderNumber,orderDate
+from orders
+inner join customers as cus on orders.customerNumber=cus.customerNumber
+-------------------------------------------------------------------------------------
+2.
+select c.customerName,o.orderNumber
+from customers as c
+left join orders as o on o.customerNumber=c.customerNumber
+-------------------------------------------------------------------------------------
+3.
+This question is the same as question 2.
+-------------------------------------------------------------------------------------
+4.
+SELECT pro.productCode,pro.productName,customers.customerName
+FROM products as pro
+inner join orderdetails as od on od.productCode=pro.productCode
+inner join orders on orders.orderNumber=od.orderNumber
+inner join customers on customers.customerNumber=orders.customerNumber
+-------------------------------------------------------------------------------------
+5.
+SELECT pro.productCode,pro.productName,sum(od.quantityOrdered)
+FROM products as pro
+left join orderdetails as od on od.productCode=pro.productCode
+group by od.productCode,pro.productName
+order by sum(od.quantityOrdered)
+-------------------------------------------------------------------------------------
+6.
+This question is the same as question 5.
+-------------------------------------------------------------------------------------
+7.
+SELECT c.customerNumber,sum(c.customerNumber)
+FROM customers as c
+left join payments as p on p.customerNumber=c.customerNumber
+group by c.customerNumber
+order by c.customerNumber
+-------------------------------------------------------------------------------------
+8.
+This question is the same as question 7.
+-------------------------------------------------------------------------------------
+9.
+SELECT distinct productLine FROM products;
+-------------------------------------------------------------------------------------
+10.
+SELECT od.productCode,sum(od.quantityOrdered)as total
+FROM orderdetails as od
+group by od.productCode
+order by total desc
+-------------------------------------------------------------------------------------
+11.
+SELECT count(orderNumber) as "number of orders",status
+from orders
+group by status
+order by "number of orders" desc
+-------------------------------------------------------------------------------------
+12.
+SELECT year(orderDate),count(year(orderDate)) as "number of orders in year"
+from orders
+group by year(orderDate)
+order by "number of orders in year" desc
+-------------------------------------------------------------------------------------
+13.
+SELECT productName,
+        sum(quantityInStock *od.priceEach) as total
+FROM products
+inner join orderdetails as od on od.productCode=products.productCode
+group by productName
+-------------------------------------------------------------------------------------
+14.
+SELECT productName,
+        sum(quantityInStock *od.priceEach) as total
+FROM products
+inner join orderdetails as od on od.productCode=products.productCode
+group by productName
+having(total>10000000)
+-------------------------------------------------------------------------------------
+15.
+SELECT pro.productLine,
+        year(o.orderDate),
+        sum(quantityOrdered*priceEach) AS "total sales"
+FROM orderdetails
+inner join products as pro on pro.productCode=orderdetails.productCode
+inner join orders as o on o.orderNumber=orderdetails.orderNumber
+group by pro.productLine,year(o.orderDate)
+order by year(o.orderDate) desc
+-------------------------------------------------------------------------------------
+16.
+SELECT customers.country,
+		sum(od.quantityOrdered),
+		sum(od.quantityOrdered*od.priceEach )as total
+FROM customers
+inner join orders as o on o.customerNumber = customers.customerNumber
+inner join orderdetails as od on od.orderNumber=o.orderNumber
+group by country
+having total>2000
+order by total desc
+-------------------------------------------------------------------------------------
+17.
+-------------------------------------------------------------------------------------
+18.
+SELECT productName,
+        productCode,
+        quantityInStock
+FROM products
+having
+quantityInStock=(select min(quantityInStock) from products)
+-------------------------------------------------------------------------------------
+19.
+SELECT productName,productCode,((buyPrice-MSRP)/MSRP)as p_margin FROM products
+order by p_margin desc
+limit 1
+
+
+or
+
+
+SELECT productName,
+         productCode,
+         ((buyPrice-MSRP)/MSRP)as p_margin
+FROM products
+HAVING p_margin= 
+    (SELECT max((buyPrice-MSRP)/MSRP)from products)
+-------------------------------------------------------------------------------------
+20.
+SELECT * FROM customers
+order by customers.creditLimit desc
+limit 1
+-------------------------------------------------------------------------------------
+21.
+SELECT c.customerName,o.orderNumber,(od.quantityOrdered*od.priceEach)as total
+FROM customers as c
+inner join orders as o on o.customerNumber=c.customerNumber
+inner join orderdetails as od on od.orderNumber=o.orderNumber
+inner join products as pro on pro.productCode=od.productCode
+having total >3000
